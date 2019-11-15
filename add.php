@@ -4,6 +4,7 @@ $email = $title = $ingredients = '';
 $errors = array('email' => '', 'title'=> '', 'ingredients'=>'');
 
     if (isset($_POST['submit'])) {
+        
         // check email
         if (empty($_POST['email'])) {
             $errors['email'] = 'An email is required';
@@ -19,13 +20,13 @@ $errors = array('email' => '', 'title'=> '', 'ingredients'=>'');
             $errors['title'] = 'An title is required';
         } else {
             $title = $_POST['title'];
-            if (!preg_match('/^[a-zA-Z\s]=$/', $title)) {
+            if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
                 $errors['title'] = 'title must be letters and spaces only';
             }
         }
 
         // check engrients
-        if (empty($_POST['engrients'])){
+        if (empty($_POST['ingredients'])){
             $errors['ingredients'] = 'At least one engrient is required';
         } else {
             $ingredients = $_POST['ingredients'];
@@ -33,6 +34,13 @@ $errors = array('email' => '', 'title'=> '', 'ingredients'=>'');
                 $errors['ingredients'] = 'Ingredients must be a comma separated list';
             }
         }
+        
+        if (array_filter($errors)) {
+            //echo 'errors have';
+        } else {
+            header('Location: index.php');
+        }
+
     } //end of POST check
 ?>
 
